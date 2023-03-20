@@ -25,6 +25,7 @@ python==3.6.9
 파이썬은 다음과 같이 설치할 수 있습니다
 ```
 conda create --name "가상환경이름" python=3.6.9"
+conda activate "가상환경이름"
 ```
 - 패키지 요구사항
 ```
