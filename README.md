@@ -1,6 +1,13 @@
 # Paper/Report Summarzatoin Service
+![화면 캡처 2023-03-20 211918](https://user-images.githubusercontent.com/114756802/226337540-5838981b-d0a3-4fc6-94fe-503b4ec1542f.png)
+
+
 - 본 서비스는 논문 및 레포트의 초록(1024자 이하)을 통해 주제문을 자동으로 요약/생성하는 서비스입니다.
 - txt 파일의 요약문을 jupiter notebook 내에서 직접 확인하거나 excel 파일을 통해 확인하실 수 있습니다.
+
+
+---
+
 
 ## **Generation Sample**
 | | text |
@@ -74,3 +81,8 @@ ds-CP1-project
   - 파일이 여러 개일 경우, [액셀 파일로 저장하기] 셀 실행 시 result 폴더 내 excel 파일이 생성되며 결과를 확인하실 수 있습니다.
     - 단, excel 파일이 열려있으면 제대로 동작하지 않습니다. 실행 전 excel 파일이 열려있지 않은지 확인해주세요.
     - 파일이 한 개인 경우에도 excel 파일을 통해 결과를 저장하실 수 있습니다.
+    
+---
+
+## **서비스 사용 모델**
+- SKT-AI의 KoBART 모델을 Fine-tuning 한 후, huggingFace 라이브러리의 토크나이저('gogamza/kobart-summarization')와 함께 사용하였습니다.
