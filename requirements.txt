@@ -1,0 +1,10 @@
+pandas
+openpyxl
+torch==1.9.1
+torchtext==0.10.1
+torchvision==0.10.1
+torchmetrics==0.5.1
+transformers==4.8.2
+streamlit==1.1.0
+pyyaml==5.4.1
+pytorch_lightning==1.5.2
