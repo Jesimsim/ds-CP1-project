@@ -20,7 +20,7 @@
 
 ## **How to install**
 ```
-git clone https://github.com/Jesimsim/ds-CP1-project
+$ git clone https://github.com/Jesimsim/ds-CP1-project
 ```
 혹은 패키지 전체 다운로드(상단 초록색Code버튼 - Download .Zip)
 
