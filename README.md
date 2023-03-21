@@ -22,6 +22,7 @@
 ```
 git clone https://github.com/Jesimsim/ds-CP1-project
 ```
+혹은 패키지 전체 다운로드(상단 초록색Code버튼 - Download .Zip)
 
 
 ## **Requirements**
@@ -31,8 +32,8 @@ python==3.6.9
 ```
 파이썬은 다음과 같이 설치할 수 있습니다
 ```
-conda create --name "가상환경이름" python=3.6.9"
-conda activate "가상환경이름"
+$ conda create --name "가상환경이름" python=3.6.9"
+$ conda activate "가상환경이름"
 ```
 - 패키지 요구사항
 ```
@@ -50,8 +51,8 @@ pytorch_lightning==1.5.2
 ```
 요구조건은 다음과 같이 설치할 수 있습니다.
 ```
-cd ds-CP1-project
-pip install -r requirements.txt
+$ cd ds-CP1-project
+$ pip install -r requirements.txt
 ```
 
 ## **How to Use**
