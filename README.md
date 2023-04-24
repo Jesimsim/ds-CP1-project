@@ -1,4 +1,11 @@
 # Paper/Report Summarzatoin Service
+
+
+![header](https://capsule-render.vercel.app/api?type=rect&color=EFCFCC&height=200&section=header&text=Paper/Report%20Summarization&fontSize=50&fontColor=91342A&desc=%EA%B2%80%EC%83%89%20%EA%B2%BD%EC%9F%81%EB%A0%A5%20%ED%96%A5%EC%83%81%EC%9D%84%20%EC%9C%84%ED%95%9C%20%EB%85%BC%EB%AC%B8%2F%EB%A6%AC%ED%8F%AC%ED%8A%B8%20%EC%9A%94%EC%95%BD%20%EB%AA%A8%EB%8D%B8&descSize=20&descAlignY=72)
+
+
+## Service Sample
+
 ![화면 캡처 2023-03-20 211918](https://user-images.githubusercontent.com/114756802/226337540-5838981b-d0a3-4fc6-94fe-503b4ec1542f.png)
 
 
@@ -85,5 +92,68 @@ ds-CP1-project
     
 ---
 
-## **서비스 사용 모델**
-- SKT-AI의 KoBART 모델을 Fine-tuning 한 후, huggingFace 라이브러리의 토크나이저('gogamza/kobart-summarization')와 함께 사용하였습니다.
+## **프로젝트 배경**
+
+### **프로젝트 목적 및 배경**
+- 논문/리포트 플랫폼 서비스에서 검색 시 제목과 요약문을 함께 제공하기 위해, 논문/리포트 요약문 생성 모델 구축 및 배포
+
+### 프로젝트 의의
+- 논문제공자 - 요약 자동화를 통한 사용자 편의성 향상
+- 논문독자 - 논문 내용을 살피는 단계(’검색화면’-’논문화면’ 2단계 > ‘검색화면’ 1단계)를 줄임으로써 논문 검색시간 단축, 타사에 비한 검색 경쟁력 향상
+
+> 이후 키워드 추출 중심으로 모델을 바꿔, 검색 정확도를 향상시키는 모델로도 활용될 수 있을 것으로 보임
+
+
+
+---
+
+### 프로젝트 프로세스(개인)
+
+- Text Summarizatoin Task에 사용하는 두 기법 (추출적 요약 및 추상적 요약) 비교
+- 데이터 EDA, 정제 및 전처리 : 각 모델의 요구 형태(TextRank-문장화, KoBART-문서화)
+- 각 모델 구축 및 Fine Tune : TextRank(추출적요약) 및 SKT-AI의 KoBART 모델(추상적요약) Fine-Tune 모델에 따른 결과물 도출, 성능 비교
+- 최종모델 선정을 위한 정량적 및 정성적 평가 : 추출적모델 대 추상적모델, Pre-trained 모델 대 Fine-tuned 모델, huggingFace의 토크나이저에 따른 결과 비교
+- 패키징 및 배포를 위한 구조 설계
+
+---
+
+### 데이터셋
+
+- **출처** : "데이콘 AI 기반 회의 녹취록 요약 경진대회"의 실제 국회 녹취록 활용
+
+- **데이터 형태 및 집계방식** : 회의 별, 안건 별 분할된 json 파일 (회의번호, 안건번호 및 회의내용, 요약문)
+
+- **데이터 크기** : 총 회의 2,691건(Train 1,674/Val 559/Test 458)
+
+    - **설명** : 각 모델 및 토크나이저 요구 format에 따라, TextRank 특수기호 삭제 및 KoBART 1,024글자 이상의 데이터 제거
+
+- **피처데이터(X)** : 회의내용
+
+- **라벨데이터(y)** : 요약문
+
+
+---
+
+### 결과
+#### 추출적 요약인 TextRank 알고리즘과 추상적 요약인 KoBART 모델의 성능 비교
+- 높은 추상화수준을 가진 KoBART 모델이 TextRank 에 비해 유의미하게 성능이 높음.
+#### 전이학습Fine-tune KoBART 모델과 사전학습Pre-trained KoBART모델의 성능 비교
+- 가설과 달리, 전이학습 모델Fine-tune이 사전학습Pre-trained 모델보다 유의미하게 성능이 높았음
+- 그러나 데이터셋 특성 상 과적합 우려가 있어, 다양한 데이터셋을 확보하여 학습 및 성능평가를 통해 일반화 성능을 높여야 할 필요성이 있음
+#### Tokenizer에 따른 성능 비교
+- KoBART-summarization 전용의 토크나이저는 제작자가 다르더라도 요약문 생성에 큰 영향을 미치지 않았음
+- KoBART용이 아닌 일반적인 토크나이저를 적용했을 때의 성능 차이를 확인할 필요성이 있음
+
+![image](https://user-images.githubusercontent.com/114756802/234026996-b67e194e-f495-4890-9c23-177551802025.png)
+
+
+---
+
+### 한계점 및 보완점
+- 추후 질의응답 모델까지 구현하여 서비스 완결성 높이기
+- 데이터셋 자체의 한계) 데이터셋 특성 상 특정 형태의 요약에 과적합 우려가 있어 더욱 다양한 데이터셋을 추가로 학습 및 성능평가에 반영
+- Metric 보완 : 한국어 Text Generatoin 평가에 적절한 RDASS, ROUGE-SU 등을 구현하여 평가
+    - 한국어는 문장구조, 조사유무 등이 자유로운 교착어이기에, 형태학적 유사도보다 다른 지표가 고려될 필요성이 있음 (“나? 먹었지, 밥“ vs “나? 밥 먹었지”)
+    - RDASS 문서(d), 정답 요약 문장(r), 모델이 생성한 요약 문장(p) 각각의 임베딩 벡터를 통해 코사인 유사도를 계산하여 유사도의 평균값을 구하는 지표
+    - ROUGE-SU skip-gram과 unigram을 동시에 고려하는 지표
+- KoBERT 와 KoGPT 등의 다른 딥러닝 모델과의 성능 비교
