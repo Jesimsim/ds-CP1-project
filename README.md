@@ -107,16 +107,6 @@ ds-CP1-project
 
 ---
 
-## 프로젝트 프로세스(개인)
-
-- Text Summarizatoin Task에 사용하는 두 기법 (추출적 요약 및 추상적 요약) 비교
-- 데이터 EDA, 정제 및 전처리 : 각 모델의 요구 형태(TextRank-문장화, KoBART-문서화)
-- 각 모델 구축 및 Fine Tune : TextRank(추출적요약) 및 SKT-AI의 KoBART 모델(추상적요약) Fine-Tune 모델에 따른 결과물 도출, 성능 비교
-- 최종모델 선정을 위한 정량적 및 정성적 평가 : 추출적모델 대 추상적모델, Pre-trained 모델 대 Fine-tuned 모델, huggingFace의 토크나이저에 따른 결과 비교
-- 패키징 및 배포를 위한 구조 설계
-
----
-
 ## 데이터셋
 
 - **출처** : "데이콘 AI 기반 회의 녹취록 요약 경진대회"의 실제 국회 녹취록 활용
@@ -134,17 +124,28 @@ ds-CP1-project
 
 ---
 
-## 모델 소개
-    - TextRank(추출적 요약)
-        - 문장 단위로 중요도를 scoring한 후, 이를 기반으로 선택하고 조합하여 summary하는 비지도학습
-        - 문장을 핵심적으로 정리하는 뉴스기사, 소논문 등의 요약 task에 적합
-        - 원문을 기반으로 하되, 새로운 텍스트를 생성해내는 NLG natural language generation 방식(지도학습)으로, Transformer/BERT 등이 해당
-    - **BART** Bidirectional and Auto-Regressive Transformers : 현 Text Summarization 분야의 SOTA 모델, 입력 텍스트 일부에 노이즈를 추가 text Infiling 하여 이를 다시 원문으로 복구하는 autoencoder 형태로 학습하는 구조
-    - **KoBART** BART모델에 한국어 텍스트를 학습시킨 한국어 autoencoder 모델 
+## 프로젝트 모델 및 기법
+- **TextRank(추출적 요약)**
+    - 문장 단위로 중요도를 scoring한 후, 이를 기반으로 선택하고 조합하여 summary하는 비지도학습
+    - 문장을 핵심적으로 정리하는 뉴스기사, 소논문 등의 요약 task에 적합
+- **KoBART(추상적 요약)**
+    - 원문을 기반으로 하되, 새로운 텍스트를 생성해내는 NLG natural language generation 방식(지도학습)으로, Transformer/BERT 등이 해당
+   - **BART** Bidirectional and Auto-Regressive Transformers : 현 Text Summarization 분야의 SOTA 모델, 입력 텍스트 일부에 노이즈를 추가 text Infiling 하여 이를 다시 원문으로 복구하는 autoencoder 형태로 학습하는 구조
+   - **KoBART** BART모델에 한국어 텍스트를 학습시킨 한국어 autoencoder 모델 
 
 ---
 
-## 결과
+## 프로젝트 프로세스(개인)
+
+- Text Summarizatoin Task에 사용하는 두 기법 (추출적 요약 및 추상적 요약) 비교
+- 데이터 EDA, 정제 및 전처리 : 각 모델의 요구 형태(TextRank-문장화, KoBART-문서화)
+- 각 모델 구축 및 Fine Tune : TextRank(추출적요약) 및 SKT-AI의 KoBART 모델(추상적요약) Fine-Tune 모델에 따른 결과물 도출, 성능 비교
+- 최종모델 선정을 위한 정량적 및 정성적 평가 : 추출적모델 대 추상적모델, Pre-trained 모델 대 Fine-tuned 모델, huggingFace의 토크나이저에 따른 결과 비교
+- 패키징 및 배포를 위한 구조 설계
+
+---
+
+## 프로젝트 결과
 #### 추출적 요약인 TextRank 알고리즘과 추상적 요약인 KoBART 모델의 성능 비교
 - 높은 추상화수준을 가진 KoBART 모델이 TextRank 에 비해 유의미하게 성능이 높음.
 #### 전이학습Fine-tune KoBART 모델과 사전학습Pre-trained KoBART모델의 성능 비교
