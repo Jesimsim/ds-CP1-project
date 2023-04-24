@@ -107,7 +107,7 @@ ds-CP1-project
 
 ---
 
-### 프로젝트 프로세스(개인)
+## 프로젝트 프로세스(개인)
 
 - Text Summarizatoin Task에 사용하는 두 기법 (추출적 요약 및 추상적 요약) 비교
 - 데이터 EDA, 정제 및 전처리 : 각 모델의 요구 형태(TextRank-문장화, KoBART-문서화)
@@ -117,7 +117,7 @@ ds-CP1-project
 
 ---
 
-### 데이터셋
+## 데이터셋
 
 - **출처** : "데이콘 AI 기반 회의 녹취록 요약 경진대회"의 실제 국회 녹취록 활용
 
@@ -134,7 +134,17 @@ ds-CP1-project
 
 ---
 
-### 결과
+## 모델 소개
+    - TextRank(추출적 요약)
+        - 문장 단위로 중요도를 scoring한 후, 이를 기반으로 선택하고 조합하여 summary하는 비지도학습
+        - 문장을 핵심적으로 정리하는 뉴스기사, 소논문 등의 요약 task에 적합
+        - 원문을 기반으로 하되, 새로운 텍스트를 생성해내는 NLG natural language generation 방식(지도학습)으로, Transformer/BERT 등이 해당
+    - **BART** Bidirectional and Auto-Regressive Transformers : 현 Text Summarization 분야의 SOTA 모델, 입력 텍스트 일부에 노이즈를 추가 text Infiling 하여 이를 다시 원문으로 복구하는 autoencoder 형태로 학습하는 구조
+    - **KoBART** BART모델에 한국어 텍스트를 학습시킨 한국어 autoencoder 모델 
+
+---
+
+## 결과
 #### 추출적 요약인 TextRank 알고리즘과 추상적 요약인 KoBART 모델의 성능 비교
 - 높은 추상화수준을 가진 KoBART 모델이 TextRank 에 비해 유의미하게 성능이 높음.
 #### 전이학습Fine-tune KoBART 모델과 사전학습Pre-trained KoBART모델의 성능 비교
@@ -149,8 +159,8 @@ ds-CP1-project
 
 ---
 
-### 한계점 및 보완점
-- 추후 질의응답 모델까지 구현하여 서비스 완결성 높이기
+## 한계점 및 보완점
+- 추후 질의응답 모델까지 구현하여 서비스의 완결성을 높이고자 함.
 - 데이터셋 자체의 한계) 데이터셋 특성 상 특정 형태의 요약에 과적합 우려가 있어 더욱 다양한 데이터셋을 추가로 학습 및 성능평가에 반영
 - Metric 보완 : 한국어 Text Generatoin 평가에 적절한 RDASS, ROUGE-SU 등을 구현하여 평가
     - 한국어는 문장구조, 조사유무 등이 자유로운 교착어이기에, 형태학적 유사도보다 다른 지표가 고려될 필요성이 있음 (“나? 먹었지, 밥“ vs “나? 밥 먹었지”)
