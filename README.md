@@ -78,6 +78,10 @@ ds-CP1-project
 ├── test.ipynb         # 서비스 실행 파일
 └── requirements.txt   # 서비스 실행을 위한 필요조건
 
+(그외)
+└── Technical_report.pdf       # 테크니컬 리포트 (서비스 기획 의도 및 모델 구축 과정)
+└── Train_Preprocessing.ipynb  # Model Train 및 Data Processing 코드
+
 ```
 1. **data 폴더에 txt 파일(요약할 논문/리포트)을 넣습니다.**
 > 파일은 txt 형태여야 합니다.
